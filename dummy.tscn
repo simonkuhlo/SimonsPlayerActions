@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://ydojkue5cfqc"]
+
+[ext_resource type="Script" path="res://dummy.gd" id="1_fw8b1"]
+[ext_resource type="Script" path="res://ObtainableResources/obtainable_resource_manager.gd" id="1_qahs0"]
+[ext_resource type="Script" path="res://ObtainableResources/obtainable_resource.gd" id="2_txge1"]
+[ext_resource type="Resource" uid="uid://bdxocijmk626n" path="res://ObtainableResources/HP_Resource.tres" id="3_6cif6"]
+[ext_resource type="Resource" uid="uid://bc7nnpl84kpnm" path="res://ObtainableResources/AP_Resource.tres" id="5_e8vp4"]
+[ext_resource type="Script" path="res://action_instance.gd" id="6_osb05"]
+
+[node name="Dummy" type="Node" node_paths=PackedStringArray("resources")]
+script = ExtResource("1_fw8b1")
+resources = NodePath("ObtainableResourceManager")
+hp_type = ExtResource("3_6cif6")
+
+[node name="ObtainableResourceManager" type="Node" parent="."]
+script = ExtResource("1_qahs0")
+
+[node name="HP" type="Node" parent="ObtainableResourceManager"]
+script = ExtResource("2_txge1")
+type = ExtResource("3_6cif6")
+max_value = 100.0
+default_value = 100.0
+
+[node name="AP" type="Node" parent="ObtainableResourceManager"]
+script = ExtResource("2_txge1")
+type = ExtResource("5_e8vp4")
+
+[node name="Actions" type="Node" parent="."]
+
+[node name="Test_ONESHOT" type="Node" parent="Actions"]
+script = ExtResource("6_osb05")
