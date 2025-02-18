@@ -48,9 +48,10 @@ func _ready() -> void:
 	timer.wait_time = 0.1
 	timer.timeout.connect(_regenerate)
 	timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+	timer.one_shot = false
 	timer.autostart = true
 	add_child(timer)
 
 func _regenerate():
-	if current_value > max_value:
-		current_value += regen_per_second / 10 
+	if current_value < max_value:
+		current_value += regen_per_second / 10

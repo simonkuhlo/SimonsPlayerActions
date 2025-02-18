@@ -25,38 +25,24 @@ func _ready() -> void:
 	cooldown_timer.autostart = false
 	if cooldown:
 		cooldown_timer.wait_time = cooldown
-	state.travel(state.ActionState.READY)
+	cooldown_timer.timeout.connect(_on_cooldown_timer_timeout)
+	add_child(cooldown_timer)
+	add_child(state)
+	_setup_states()
+	state.travel(state.ready_state)
 
-func _check_resource_costs() -> bool:
+func _setup_states() -> void:
+	pass
+
+func _on_cooldown_timer_timeout() -> void:
+	state.travel(state.ready_state)
+
+func _apply_resource_costs() -> bool:
 	for cost in costs:
-		if entity.resources.get_by_type(cost.type).current_amount < cost.amount:
+		var entity_resource:ObtainableResource = entity.resources.get_resource_by_type(cost.type)
+		if !entity_resource:
 			return false
+		if entity_resource.current_value < cost.amount:
+			return false
+		entity_resource.current_value -= cost.amount
 	return true
-
-func _physics_process(delta: float) -> void:
-	match state.current_state:
-		state.ActionState.READY:
-			_on_actionstate_ready()
-		state.ActionState.BLOCKED:
-			_on_actionstate_blocked()
-		state.ActionState.PREPARING:
-			_on_actionstate_preparing(delta)
-		state.ActionState.CASTING:
-			_on_actionstate_casting(delta)
-		state.ActionState.COOLDOWN:
-			_on_actionstate_cooldown()
-
-func _on_actionstate_ready():
-	pass
-
-func _on_actionstate_blocked():
-	pass
-
-func _on_actionstate_preparing(delta:float):
-	pass
-
-func _on_actionstate_casting(delta:float):
-	pass
-
-func _on_actionstate_cooldown():
-	pass
