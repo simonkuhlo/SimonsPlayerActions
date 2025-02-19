@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://ydojkue5cfqc"]
 
-[ext_resource type="Script" path="res://dummy.gd" id="1_fw8b1"]
+[ext_resource type="Script" path="res://Tools/dummy.gd" id="1_fw8b1"]
 [ext_resource type="Script" path="res://ObtainableResources/obtainable_resource_manager.gd" id="1_qahs0"]
 [ext_resource type="Script" path="res://ObtainableResources/obtainable_resource.gd" id="2_txge1"]
 [ext_resource type="Resource" uid="uid://bdxocijmk626n" path="res://ObtainableResources/HP_Resource.tres" id="3_6cif6"]
 [ext_resource type="Resource" uid="uid://bc7nnpl84kpnm" path="res://ObtainableResources/AP_Resource.tres" id="5_e8vp4"]
-[ext_resource type="Script" path="res://action_oneshot.gd" id="6_kkg6n"]
+[ext_resource type="Script" path="res://Actions/action_oneshot.gd" id="6_kkg6n"]
 [ext_resource type="Script" path="res://ObtainableResources/obtainable_resource_cost.gd" id="7_8cn14"]
-[ext_resource type="Script" path="res://resource_label.gd" id="7_i5n1e"]
+[ext_resource type="Script" path="res://Tools/resource_label.gd" id="7_i5n1e"]
 
 [sub_resource type="Resource" id="Resource_yenm2"]
 script = ExtResource("7_8cn14")
