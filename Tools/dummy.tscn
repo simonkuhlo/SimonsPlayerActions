@@ -1,18 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://ydojkue5cfqc"]
+[gd_scene load_steps=11 format=3 uid="uid://ydojkue5cfqc"]
 
 [ext_resource type="Script" path="res://Tools/dummy.gd" id="1_fw8b1"]
 [ext_resource type="Script" path="res://ObtainableResources/obtainable_resource_manager.gd" id="1_qahs0"]
 [ext_resource type="Script" path="res://ObtainableResources/obtainable_resource.gd" id="2_txge1"]
 [ext_resource type="Resource" uid="uid://bdxocijmk626n" path="res://ObtainableResources/HP_Resource.tres" id="3_6cif6"]
 [ext_resource type="Resource" uid="uid://bc7nnpl84kpnm" path="res://ObtainableResources/AP_Resource.tres" id="5_e8vp4"]
-[ext_resource type="Script" path="res://Actions/action_oneshot.gd" id="6_kkg6n"]
+[ext_resource type="Script" path="res://Actions/action_toggle.gd" id="6_ngm6n"]
 [ext_resource type="Script" path="res://ObtainableResources/obtainable_resource_cost.gd" id="7_8cn14"]
 [ext_resource type="Script" path="res://Tools/resource_label.gd" id="7_i5n1e"]
+
+[sub_resource type="Resource" id="Resource_utrsj"]
+script = ExtResource("7_8cn14")
+type = ExtResource("3_6cif6")
+amount = 1.0
 
 [sub_resource type="Resource" id="Resource_yenm2"]
 script = ExtResource("7_8cn14")
 type = ExtResource("5_e8vp4")
-amount = 2.0
+amount = 5.0
 
 [node name="Dummy" type="Node" node_paths=PackedStringArray("resources")]
 script = ExtResource("1_fw8b1")
@@ -36,11 +41,12 @@ regen_per_second = 0.5
 
 [node name="Actions" type="Node" parent="."]
 
-[node name="Test_ONESHOT" type="Node" parent="Actions" node_paths=PackedStringArray("entity")]
-script = ExtResource("6_kkg6n")
+[node name="Test_Continuous" type="Node" parent="Actions" node_paths=PackedStringArray("entity")]
+script = ExtResource("6_ngm6n")
+costs_per_second = Array[ExtResource("7_8cn14")]([SubResource("Resource_utrsj")])
 entity = NodePath("../..")
 trigger = &"skill_1"
-cooldown = 2.0
+cooldown = 0.5
 costs = Array[ExtResource("7_8cn14")]([SubResource("Resource_yenm2")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

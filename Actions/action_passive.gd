@@ -1,0 +1,2 @@
+extends ActionInstance
+class_name ActionPassive

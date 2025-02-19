@@ -1,5 +1,5 @@
 extends ActionInstance
-class_name ActionOneshot
+class_name ActionContinuous
 
 func _setup_states() -> void:
 	state.missing_resource_state.physics_processing.connect(_on_missing_resource_processing)
@@ -25,11 +25,11 @@ func _on_preparing_state_entered() -> void:
 	state.travel(state.casting_state)
 
 func _on_casting_entered() -> void:
-	_cast()
+	_cast_oneshot()
 	state.travel(state.cooldown_state)
 
 func _on_cooldown_entered() -> void:
 	cooldown_timer.start()
 
-func _cast() -> void:
+func _cast_oneshot() -> void:
 	print("Casting Testskill")
