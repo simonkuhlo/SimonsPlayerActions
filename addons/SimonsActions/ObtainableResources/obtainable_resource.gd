@@ -55,3 +55,16 @@ func _ready() -> void:
 func _regenerate():
 	if current_value < max_value:
 		current_value += regen_per_second / 10
+
+## Tries to substract a given amount from the current amount. Returns true if successful.
+func consume(amount:float) -> bool:
+	if current_value - amount < min_value:
+		return false
+	current_value -= amount
+	return true
+
+## Returns true if the Resource currently has the given amount or more
+func has_amount(amount:float) -> bool:
+	if current_value - amount < min_value:
+		return false
+	return true

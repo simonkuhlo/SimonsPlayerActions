@@ -1,8 +1,7 @@
 extends Node
-class_name ActionInstance
+class_name ActionInterface
 
 @export var entity:Node
-@export var trigger:StringName
 
 @export var prepare_time:float = 0
 @export var cooldown:float = 0
@@ -30,21 +29,18 @@ func _setup_states() -> void:
 func _on_cooldown_timer_timeout() -> void:
 	state.travel(state.ready_state)
 
-func _apply_resource_costs() -> bool:
-	for cost in costs:
-		var entity_resource:ObtainableResource = entity.resources.get_resource_by_type(cost.type)
-		if !entity_resource:
-			return false
-		if entity_resource.current_value < cost.amount:
-			return false
-		entity_resource.current_value -= cost.amount
+func _apply_resource_cost(cost:ObtainableResourceCost) -> bool:
+	var entity_resource:ObtainableResource = entity.resources.get_resource_by_type(cost.type)
+	if !entity_resource:
+		return false
+	if !entity_resource.consume(cost.amount):
+		return false
 	return true
 
-func _check_resource_costs() -> bool:
-	for cost in costs:
-		var entity_resource:ObtainableResource = entity.resources.get_resource_by_type(cost.type)
-		if !entity_resource:
-			return false
-		if entity_resource.current_value < cost.amount:
-			return false
+func _check_resource_cost(cost:ObtainableResourceCost) -> bool:
+	var entity_resource:ObtainableResource = entity.resources.get_resource_by_type(cost.type)
+	if !entity_resource:
+		return false
+	if entity_resource.current_value - entity_resource.min_value < cost.amount:
+		return false
 	return true
