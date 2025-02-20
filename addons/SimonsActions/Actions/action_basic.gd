@@ -75,6 +75,10 @@ func _on_missing_resource_state_exited():
 
 var prepare_time_left:float = 0
 func _on_preparing_state_entered():
+	for cost in costs:
+		if !_apply_resource_cost(cost):
+			state.travel(state.missing_resource_state)
+			return
 	if prepare_time:
 		prepare_time_left = prepare_time
 	else:

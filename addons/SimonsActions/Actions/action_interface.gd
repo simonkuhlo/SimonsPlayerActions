@@ -29,18 +29,18 @@ func _setup_states() -> void:
 func _on_cooldown_timer_timeout() -> void:
 	state.travel(state.ready_state)
 
-func _apply_resource_cost(cost:ObtainableResourceCost) -> bool:
+func _apply_resource_cost(cost:ObtainableResourceCost, delta:float = 1) -> bool:
 	var entity_resource:ObtainableResource = entity.resources.get_resource_by_type(cost.type)
 	if !entity_resource:
 		return false
-	if !entity_resource.consume(cost.amount):
+	if !entity_resource.consume(cost.amount * delta):
 		return false
 	return true
 
-func _check_resource_cost(cost:ObtainableResourceCost) -> bool:
+func _check_resource_cost(cost:ObtainableResourceCost, delta:float = 1) -> bool:
 	var entity_resource:ObtainableResource = entity.resources.get_resource_by_type(cost.type)
 	if !entity_resource:
 		return false
-	if entity_resource.current_value - entity_resource.min_value < cost.amount:
+	if entity_resource.current_value - entity_resource.min_value < cost.amount * delta:
 		return false
 	return true

@@ -9,18 +9,16 @@ func _on_casting_state_processing(delta:float) -> void:
 			_cast()
 		else:
 			state.travel(state.missing_resource_state)
+			return
 	else:
 		state.travel(state.cooldown_state)
+		return
 
 func _cast() -> void:
 	print("Casting Testskill")
 
 func _apply_cost_per_second(delta:float) -> bool:
 	for cost in costs_per_second:
-		var entity_resource:ObtainableResource = entity.resources.get_resource_by_type(cost.type)
-		if !entity_resource:
+		if !_apply_resource_cost(cost, delta):
 			return false
-		if entity_resource.current_value < cost.amount * delta:
-			return false
-		entity_resource.current_value -= cost.amount * delta
 	return true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ydojkue5cfqc"]
+[gd_scene load_steps=12 format=3 uid="uid://ydojkue5cfqc"]
 
 [ext_resource type="Script" path="res://addons/SimonsActions/Tools/dummy.gd" id="1_fw8b1"]
 [ext_resource type="Script" path="res://addons/SimonsActions/ObtainableResources/obtainable_resource_manager.gd" id="1_qahs0"]
@@ -7,7 +7,9 @@
 [ext_resource type="Resource" uid="uid://bc7nnpl84kpnm" path="res://addons/SimonsActions/ObtainableResources/AP_Resource.tres" id="5_e8vp4"]
 [ext_resource type="Script" path="res://addons/SimonsActions/ObtainableResources/obtainable_resource_cost.gd" id="7_8cn14"]
 [ext_resource type="Script" path="res://addons/SimonsActions/Tools/resource_label.gd" id="7_i5n1e"]
+[ext_resource type="Script" path="res://addons/SimonsActions/Actions/action_continuous.gd" id="8_h0xb2"]
 [ext_resource type="Script" path="res://addons/SimonsActions/Actions/action_oneshot.gd" id="8_m6vd1"]
+[ext_resource type="Script" path="res://addons/SimonsActions/Tools/state_display.gd" id="10_7momb"]
 
 [sub_resource type="Resource" id="Resource_6ahow"]
 script = ExtResource("7_8cn14")
@@ -44,6 +46,11 @@ entity = NodePath("../..")
 cooldown = 1.0
 costs = Array[ExtResource("7_8cn14")]([SubResource("Resource_6ahow")])
 
+[node name="ActionContinuous" type="Node" parent="Actions" node_paths=PackedStringArray("entity")]
+script = ExtResource("8_h0xb2")
+trigger = &"skill_2"
+entity = NodePath("../..")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer" node_paths=PackedStringArray("resource_to_watch")]
@@ -60,3 +67,13 @@ offset_bottom = 46.0
 text = "AP Label"
 script = ExtResource("7_i5n1e")
 resource_to_watch = NodePath("../../ObtainableResourceManager/AP")
+
+[node name="StateDisplay" type="Label" parent="CanvasLayer" node_paths=PackedStringArray("action_to_watch")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+script = ExtResource("10_7momb")
+action_to_watch = NodePath("../../Actions/ActionOneshot")
