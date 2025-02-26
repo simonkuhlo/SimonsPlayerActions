@@ -10,10 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Actions"
-run/main_scene="res://addons/SimonsActions/Tools/dummy.tscn"
+config/name="SimonsPlayerActions"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
 
 [input]
 
